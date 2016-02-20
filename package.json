@@ -1,0 +1,23 @@
+{
+  "name": "rise",
+  "version": "0.0.0",
+  "description": "",
+  "main": "src/server/index.js",
+  "directories": {
+    "example": "examples",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gensakusiya/rise.git"
+  },
+  "author": "Artyom Prikhodko",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gensakusiya/rise/issues"
+  },
+  "homepage": "https://github.com/gensakusiya/rise#readme"
+}
