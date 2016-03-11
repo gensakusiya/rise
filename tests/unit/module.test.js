@@ -35,3 +35,26 @@ ava('moduleEngine.add add second module, throws error', t => {
     me.add(nameModule, myModule)
   });
 });
+
+ava('moduleEngine.createModule create module return instance', t => {
+  let me = new moduleEng(),
+    myModule = () => {},
+    nameModule = 'SimpleModule2';
+
+  me.add(nameModule, myModule);
+  let mod = me.createModule(nameModule, {});
+
+  t.is(typeof mod, 'object');
+});
+ava('moduleEngine.createModule create module return null in null name', t => {
+  let me = new moduleEng();
+
+  let mod = me.createModule('', {});
+
+  t.is(mod, null);
+});
+ava('moduleEngine.createModule create module return null if constructor not found', t => {
+  let me = new moduleEng();
+
+  t.is(me.createModule('S4', {}), null);
+});
