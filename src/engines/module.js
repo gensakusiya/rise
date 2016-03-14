@@ -31,7 +31,7 @@ ModuleEng.prototype = Object.create({
     return moduleDescriptions[name];
   },
 
-  createModuleForBox(box, context) {
+  createAll(box, context) {
     let modulesEl = null;
 
     if (typeof box === 'string') {
@@ -45,7 +45,7 @@ ModuleEng.prototype = Object.create({
         const moduleName = el.attributes[this.moduleSelector].value,
           moduleDescriptionName = el.attributes[this.moduleDescriptionSelector].value;
 
-        this.createModule(moduleName, context, {
+        this.create(moduleName, context, {
           box: el,
           description: moduleDescriptions[moduleDescriptionName]
         });
@@ -53,7 +53,7 @@ ModuleEng.prototype = Object.create({
     }
   },
 
-  createModule(name, context, opts) {
+  create(name, context, opts) {
     if (!name) return null;
 
     let constructorModule = modules[name],
