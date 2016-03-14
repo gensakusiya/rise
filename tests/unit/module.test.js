@@ -58,3 +58,18 @@ ava('moduleEngine.createModule create module return null if constructor not foun
 
   t.is(me.createModule('S4', {}), null);
 });
+
+ava('moduleEngine.addDescription should be are function', t => {
+  let me = new moduleEng();
+  t.is(typeof me.addDescription, 'function');
+});
+ava('moduleEngine.addDescription add description return description by module name', t => {
+  let me = new moduleEng(),
+    name = 'FirstDesc',
+    desc = {
+      name: 'FirstDescriptionByModule'
+    };
+  me.addDescription(name, desc);
+
+  t.is(me.getDescription(name), desc);
+});
