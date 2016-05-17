@@ -52,6 +52,12 @@ let createReg = function (route) {
     routeOpts.params = params;
   };
 
+/**
+ * parse url string
+ * @param url {string} - changed url
+ * @param routers {object} - app routers
+ * @returns {{route, opts, params}}
+ */
 export default function (url, routers) {
   let result = getRouteObj(url, routers);
 

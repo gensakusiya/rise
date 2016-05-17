@@ -1,20 +1,23 @@
 'use strict';
 
-import createCore from './engines';
+import {createCore} from './engines';
+import {changeRoute, renderApp} from './core';
 
-let context, engine;
+let context = null, engine = null;
 
 /**
- * opts - options object {router: {callback: function, routes: {}}}
- * opts.router.callback - callback on change routes
+ * opts - options object {router: {routes: {}}}
  * opts.router.routes - application routes
  * opts.pageBox - content page box
  * opts.appBox - application box
- * opts.beforeOnRouteChange - pre hook - call before route changed
- * opts.beforeModuleInit - pre hook - call after route changed but before new module initialized
+ * opts.beforeOnRouteChange (Promise) - pre hook - call before route changed
+ * opts.beforeModuleInit (Promise) - pre hook - call after route changed but before new module initialized
  */
 let Rise = function (opts) {
   this.VERSION = '';
+  this.settings = opts;
+
+  opts.router.callback = changeRoute(this.settings, engine, context);
 
   const core = createCore(opts);
   context = core.context;
@@ -23,10 +26,15 @@ let Rise = function (opts) {
 
 Rise.prototype = Object.create({
   start() {
+    // render appBox
+    // init appBox modules
+    //
+    renderApp();
 
+    engine.router.start();
   },
   stop() {
-
+    engine.router.stop();
   },
 
   getNamespace(name) {

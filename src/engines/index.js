@@ -5,6 +5,7 @@ import namespaceEngine from './namespace';
 import serviceEngine from './service';
 import storeEngine from './store';
 import routerEngine from './router';
+import templateEngine from './template';
 
 import APPCONST from '../const';
 
@@ -12,13 +13,13 @@ const createCore = (opts) => {
   const namespace = namespaceEngine();
   const module = moduleEngine();
   const store = storeEngine();
-  const router = routerEngine(opts.router);
+  const template = templateEngine();
 
   let engine = {
       namespace,
       module,
       store,
-      router
+      template
     },
     context;
 
@@ -27,6 +28,7 @@ const createCore = (opts) => {
       return engine.store.get(name);
     }
   });
+  engine.router = routerEngine(opts.routes);
 
   context = {
     getNamespace(name) {

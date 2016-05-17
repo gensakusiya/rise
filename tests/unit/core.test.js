@@ -9,10 +9,10 @@ ava('core must be define', t => {
   t.is(typeof result, 'function');
 });
 ava('core.start must be function', t => {
-  let result = new Rise();
-  t.is(typeof result.start, 'function');
+  let result = Rise;
+  t.is(typeof result.prototype.start, 'function');
 });
 ava('core.stop must be function', t => {
-  let result = new Rise();
-  t.is(typeof result.stop, 'function');
+  let result = Rise;
+  t.is(typeof result.prototype.stop, 'function');
 });

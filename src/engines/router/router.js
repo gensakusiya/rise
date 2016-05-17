@@ -1,6 +1,6 @@
 'use strict';
 
-import {parse} from './parse';
+import parse from './parse';
 
 let changeRouteEvent = (e) => {
     changeRouteState.call(this, e.state.route);
