@@ -18,22 +18,22 @@ let createReg = function (route) {
   },
   getRouteObj = function (url, routers) {
     for (let route of routers) {
-      if (!route) {
+      if (!route[0]) {
         if (!url) {
-          return {route, opts: routers[route]};
+          return {route: route[0], opts: route[1]};
         }
       } else {
-        let routeExp = createReg(route);
+        let routeExp = createReg(route[0]);
 
         if (routeExp) {
           let routeReg = new RegExp(routeExp),
             resultMatch = routeReg.test(url);
 
           if (resultMatch) {
-            return {route, opts: routers[route]};
+            return {route: route[0], opts: route[1]};
           }
-        } else if (route === url) {
-          return {route, opts: routers[route]};
+        } else if (route[0] === url) {
+          return {route: route[0], opts: route[1]};
         }
       }
     }

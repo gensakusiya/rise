@@ -2,15 +2,15 @@
 
 import parse from './parse';
 
-let changeRouteEvent = (e) => {
+let changeRouteEvent = function (e) {
     changeRouteState.call(this, e.state.route);
   },
-  changeRouteState = (route) => {
+  changeRouteState = function (route) {
     let parseUrl = parse(route, this.routers);
     this.callback(parseUrl);
   },
   addIteratorOnRouts = (routersObj) => {
-    routersObj[Symbol.iterator] = function* (){
+    routersObj[Symbol.iterator] = function*() {
       let keys = Object.keys(this);
 
       for (let key of keys) {
