@@ -28,7 +28,7 @@ const createCore = (opts) => {
       return engine.store.get(name);
     }
   });
-  engine.router = routerEngine(opts.routes);
+  engine.router = routerEngine(opts.router);
 
   context = {
     getNamespace(name) {

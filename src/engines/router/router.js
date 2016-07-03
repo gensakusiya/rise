@@ -21,7 +21,7 @@ let changeRouteEvent = (e) => {
 
 class Router {
   constructor(opts) {
-    this.routers = opts.routers;
+    this.routers = opts.routes;
     this.callback = opts.callback;
 
     addIteratorOnRouts(this.routers);
