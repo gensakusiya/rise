@@ -4,8 +4,8 @@ let modules = {},
   runModules = {},
   moduleDescriptions = {};
 
-const moduleSelector = '[data-module]';
-const moduleDescriptionSelector = '[data-module-desc]';
+const moduleSelector = 'data-module';
+const moduleDescriptionSelector = 'data-module-desc';
 
 let ModuleEng = function (opts) {
   this.moduleSelector = (opts && opts.moduleSelector) || moduleSelector;
@@ -35,9 +35,9 @@ ModuleEng.prototype = Object.create({
     let modulesEl = null;
 
     if (typeof box === 'string') {
-      modulesEl = document.querySelector(box).querySelectorAll(this.moduleSelector);
+      modulesEl = document.querySelector(box).querySelectorAll(`[${this.moduleSelector}]`);
     } else {
-      modulesEl = box.querySelectorAll(this.moduleSelector);
+      modulesEl = box.querySelectorAll(`[${this.moduleSelector}]`);
     }
 
     if (modulesEl && modulesEl.length) {

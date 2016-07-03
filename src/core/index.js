@@ -9,8 +9,8 @@ const changeRoute = (opts, engine, context) => {
       };
 
       if (typeof opts.beforeModuleInit === 'function') {
-        opts.beforeModuleInit(request).then(createModules).catch(() => {
-          throw new Error('before module init pre-hook error');
+        opts.beforeModuleInit(request).then(createModules).catch((e) => {
+          throw new Error('before module init pre-hook error', e);
         });
       } else {
         createModules();
@@ -24,8 +24,8 @@ const changeRoute = (opts, engine, context) => {
         .then(() => {
           return change(request);
         })
-        .catch(() => {
-          throw new Error('by changing the router error');
+        .catch((e) => {
+          throw new Error('by changing the router error', e);
         });
     } else {
       change(request);
