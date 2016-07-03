@@ -56,8 +56,8 @@ Rise.prototype = Object.create({
   addService(name, sObj) {
     return engine.service.add(name, sObj);
   },
-  addStore(name, sObj) {
-    return engine.store.add(name, sObj);
+  addStore(name, reducer, data) {
+    return engine.store.create(name, reducer, data);
   }
 });
 
