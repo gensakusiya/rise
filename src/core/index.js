@@ -8,7 +8,7 @@ const changeRoute = (opts, engine, context) => {
         engine.module.createAll(opts.pageBox, context);
       };
 
-      if (opts.beforeModuleInit instanceof Promise) {
+      if (typeof opts.beforeModuleInit === 'function') {
         opts.beforeModuleInit(request).then(createModules).catch(() => {
           throw new Error('before module init pre-hook error');
         });
@@ -19,7 +19,7 @@ const changeRoute = (opts, engine, context) => {
   };
 
   return (request) => {
-    if (opts.beforeOnRouteChange instanceof Promise) {
+    if (typeof opts.beforeOnRouteChange === 'function') {
       opts.beforeOnRouteChange(request)
         .then(() => {
           return change(request);
