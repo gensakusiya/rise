@@ -10,6 +10,7 @@ let context = null, engine = null;
  * opts.router.routes - application routes
  * opts.pageBox - content page box
  * opts.appBox - application box
+ * opts.appTemplate - application template
  * opts.beforeOnRouteChange (Promise) - pre hook - call before route changed
  * opts.beforeModuleInit (Promise) - pre hook - call after route changed but before new module initialized
  */
@@ -26,11 +27,7 @@ let Rise = function (opts) {
 
 Rise.prototype = Object.create({
   start() {
-    // render appBox
-    // init appBox modules
-    //
-    renderApp();
-
+    renderApp(this.settings, engine, context);
     engine.router.start();
   },
   stop() {

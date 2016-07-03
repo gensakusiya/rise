@@ -33,8 +33,9 @@ const changeRoute = (opts, engine, context) => {
   };
 };
 
-const renderApp = () => {
-  
+const renderApp = (opts, engine, context) => {
+  engine.template.render(opts.appTemplate, opts.appBox);
+  engine.module.createAll(opts.appBox, context);
 };
 
 export {changeRoute, renderApp}
