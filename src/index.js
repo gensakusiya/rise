@@ -18,9 +18,7 @@ let Rise = function (opts) {
   this.VERSION = '';
   this.settings = opts;
 
-  opts.router.callback = changeRoute(this.settings, engine, context);
-
-  const core = createCore(opts);
+  const core = createCore(opts, changeRoute);
   context = core.context;
   engine = core.engine;
 };

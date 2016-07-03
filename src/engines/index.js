@@ -9,7 +9,7 @@ import templateEngine from './template';
 
 import APPCONST from '../const';
 
-const createCore = (opts) => {
+const createCore = (opts, changeRoute) => {
   const namespace = namespaceEngine();
   const module = moduleEngine();
   const store = storeEngine();
@@ -28,7 +28,6 @@ const createCore = (opts) => {
       return engine.store.get(name);
     }
   });
-  engine.router = routerEngine(opts.router);
 
   context = {
     getNamespace(name) {
@@ -49,6 +48,9 @@ const createCore = (opts) => {
       return engine.router.navigate(url);
     }
   };
+
+  opts.router.callback = changeRoute(opts, engine, context);
+  engine.router = routerEngine(opts.router);
 
   return {
     context, engine
