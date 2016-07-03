@@ -12,7 +12,7 @@ let createService = (name) => {
     let constructor = services[name];
 
     if (mixin) {
-      constructor.prototype = Object.create(mixin);
+      Object.assign(constructor.prototype, mixin);
     }
 
     runServices[name] = new constructor();
