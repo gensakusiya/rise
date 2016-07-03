@@ -33,6 +33,9 @@ Rise.prototype = Object.create({
   stop() {
     engine.router.stop();
   },
+  navigate(url) {
+    engine.router.navigate(url);
+  },
 
   getNamespace(name) {
     return engine.namespace.get(name);
