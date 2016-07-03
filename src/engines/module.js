@@ -42,8 +42,9 @@ ModuleEng.prototype = Object.create({
 
     if (modulesEl && modulesEl.length) {
       modulesEl.forEach(el => {
-        const moduleName = el.attributes[this.moduleSelector].value,
-          moduleDescriptionName = el.attributes[this.moduleDescriptionSelector].value;
+        const moduleName = el.attributes[this.moduleSelector].value;
+        const moduleDescriptorAttr = el.attributes[this.moduleDescriptionSelector];
+        const moduleDescriptionName = moduleDescriptorAttr ? moduleDescriptorAttr.name : {};
 
         this.create(moduleName, context, {
           box: el,
