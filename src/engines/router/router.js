@@ -27,8 +27,8 @@ class Router {
     addIteratorOnRouts(this.routers);
   }
   
-  start() {
-    changeRouteState.call(this, window.location.pathname);
+  start(quiet) {
+    if (!quiet) changeRouteState.call(this, window.location.pathname);
     window.addEventListener('popstate', changeRouteEvent.bind(this));
   }
   
@@ -37,8 +37,12 @@ class Router {
   }
   
   navigate(newUrl) {
-    window.history.pushState({route: newUrl}, '', newUrl);
+    Router.changeUrl(newUrl);
     changeRouteState.call(this, newUrl);
+  }
+
+  static changeUrl(newUrl) {
+    window.history.pushState({route: newUrl}, '', newUrl);
   }
 }
 

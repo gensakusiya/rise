@@ -1,9 +1,17 @@
 'use strict';
 
 import {createCore} from './engines';
-import {changeRoute, renderApp} from './core';
+import {changeRoute, renderApp, renderNotAuth} from './core';
 
 let context = null, engine = null;
+
+const checkUserOpts = (opts) => {
+  return opts.user && typeof opts.user.check === 'function';
+};
+const startApp = (settings) => {
+  renderApp(settings, engine, context);
+  engine.router.start();
+};
 
 /**
  * opts - options object {router: {routes: {}}}
@@ -13,6 +21,9 @@ let context = null, engine = null;
  * opts.appTemplate - application template
  * opts.beforeOnRouteChange (Promise) - pre hook - call before route changed
  * opts.beforeModuleInit (Promise) - pre hook - call after route changed but before new module initialized
+ * opts.user - user function for render application
+ * opts.user.check - function for check authenticate
+ * opts.user.update - function for update authenticate
  */
 let Rise = function (opts) {
   this.VERSION = '';
@@ -25,8 +36,17 @@ let Rise = function (opts) {
 
 Rise.prototype = Object.create({
   start() {
-    renderApp(this.settings, engine, context);
-    engine.router.start();
+    if (checkUserOpts(this.settings)) {
+      this.settings.user.check().then(res => {
+        if (res.isAuth) {
+          startApp(this.settings);
+        } else {
+          renderNotAuth(this.settings, engine, context, res.url);
+        } 
+      });
+    } else {
+      startApp(this.settings);
+    }
   },
   stop() {
     engine.router.stop();

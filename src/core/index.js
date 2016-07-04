@@ -1,11 +1,13 @@
 'use strict';
 
-const changeRoute = (opts, engine, context) => {
+const changeRoute = (opts, engine, context, box) => {
+  const renderBox = box || opts.pageBox;
+
   const change = (request) => {
     if (request) {
       const createModules = () => {
-        engine.template.render(request.opts.template, opts.pageBox);
-        engine.module.createAll(opts.pageBox, context);
+        engine.template.render(request.opts.template, renderBox);
+        engine.module.createAll(renderBox, context);
       };
 
       if (typeof opts.beforeModuleInit === 'function') {
@@ -38,4 +40,12 @@ const renderApp = (opts, engine, context) => {
   engine.module.createAll(opts.appBox, context);
 };
 
-export {changeRoute, renderApp}
+const renderNotAuth = (opts, engine, context, url) => {
+  engine.router.changeUrl(url);
+
+  changeRoute(opts, engine, context, opts.appBox);
+
+  engine.router.start(true);
+};
+
+export {changeRoute, renderApp, renderNotAuth}
