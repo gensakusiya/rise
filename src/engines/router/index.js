@@ -25,7 +25,7 @@ RouterEngine.prototype = Object.create({
   },
 
   changeUrl(url) {
-    this.runRouter.changeUrl(url);
+    Router.changeUrl(url);
   }
 });
 

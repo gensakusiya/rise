@@ -37,11 +37,11 @@ class Router {
   }
   
   navigate(newUrl) {
-    this.changeUrl(newUrl);
+    Router.changeUrl(newUrl);
     changeRouteState.call(this, newUrl);
   }
 
-  changeUrl(newUrl) {
+  static changeUrl(newUrl) {
     window.history.pushState({route: newUrl}, '', newUrl);
   }
 }
