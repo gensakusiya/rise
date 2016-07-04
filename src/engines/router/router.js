@@ -37,13 +37,14 @@ class Router {
   }
   
   navigate(newUrl) {
-    Router.changeUrl(newUrl);
+    this.changeUrl(newUrl);
     changeRouteState.call(this, newUrl);
   }
 
-  static changeUrl(newUrl) {
+  changeUrl(newUrl) {
     window.history.pushState({route: newUrl}, '', newUrl);
   }
 }
+
 
 export default Router;
