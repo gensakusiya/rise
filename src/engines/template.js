@@ -24,6 +24,8 @@ Template.prototype = Object.create({
     }
 
     el.innerHTML = template;
+
+    return el;
   }
 });
 

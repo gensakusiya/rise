@@ -6,8 +6,8 @@ const changeRoute = (opts, engine, context) => {
   const change = (request) => {
     if (request) {
       const createModules = () => {
-        engine.template.render(request.opts.template, renderBox, opts.appBox);
-        engine.module.createAll(renderBox, context);
+        const el = engine.template.render(request.opts.template, renderBox, opts.appBox);
+        engine.module.createAll(el, context);
       };
 
       if (typeof opts.beforeModuleInit === 'function') {
