@@ -1,12 +1,12 @@
 'use strict';
 
-const changeRoute = (opts, engine, context, box) => {
-  const renderBox = box || opts.pageBox;
+const changeRoute = (opts, engine, context) => {
+  const renderBox = opts.pageBox;
 
   const change = (request) => {
     if (request) {
       const createModules = () => {
-        engine.template.render(request.opts.template, renderBox);
+        engine.template.render(request.opts.template, renderBox, opts.appBox);
         engine.module.createAll(renderBox, context);
       };
 
