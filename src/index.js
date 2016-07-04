@@ -37,7 +37,7 @@ let Rise = function (opts) {
 Rise.prototype = Object.create({
   start() {
     if (checkUserOpts(this.settings)) {
-      this.settings.user.check().then(res => {
+      this.settings.user.check.call(this).then(res => {
         if (res.isAuth) {
           startApp(this.settings);
         } else {
