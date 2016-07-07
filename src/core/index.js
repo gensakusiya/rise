@@ -1,13 +1,14 @@
 'use strict';
 
 const changeRoute = (opts, engine, context) => {
-  const renderBox = opts.pageBox;
-
   const change = (request) => {
     if (request) {
       const createModules = () => {
-        const el = engine.template.render(request.opts.template, renderBox, opts.appBox);
-        engine.module.createAll(el, context);
+        const box = request.opts.typePage === 'app' ? opts.appBox : opts.pageBox;
+
+        engine.module.deleteAll(box);
+        engine.template.render(request.opts.template, box, opts.appBox);
+        engine.module.createAll(box, context);
       };
 
       if (typeof opts.beforeModuleInit === 'function') {

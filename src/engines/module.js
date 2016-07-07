@@ -4,12 +4,12 @@ let modules = {},
   runModules = {},
   moduleDescriptions = {};
 
-const moduleSelector = 'data-module';
-const moduleDescriptionSelector = 'data-module-desc';
+const MODULESELECTOR = 'data-module';
+const MODULEDESCRIPTIONSELECTOR = 'data-module-desc';
 
 let ModuleEng = function (opts) {
-  this.moduleSelector = (opts && opts.moduleSelector) || moduleSelector;
-  this.moduleDescriptionSelector = (opts && opts.moduleDescriptionSelector) || moduleDescriptionSelector;
+  this.moduleSelector = (opts && opts.moduleSelector) || MODULESELECTOR;
+  this.moduleDescriptionSelector = (opts && opts.moduleDescriptionSelector) || MODULEDESCRIPTIONSELECTOR;
 };
 
 ModuleEng.prototype = Object.create({
@@ -50,6 +50,22 @@ ModuleEng.prototype = Object.create({
           box: el,
           description: moduleDescriptions[moduleDescriptionName]
         });
+      });
+    }
+  },
+  deleteAll(box) {
+    let modulesEl = null;
+
+    if (typeof box === 'string') {
+      modulesEl = document.querySelector(box).querySelectorAll(`[${this.moduleSelector}]`);
+    } else {
+      modulesEl = box.querySelectorAll(`[${this.moduleSelector}]`);
+    }
+
+    if (modulesEl && modulesEl.length) {
+      modulesEl.forEach(el => {
+        const moduleName = el.attributes[this.moduleSelector].value;
+        this.destroyModule(moduleName);
       });
     }
   },
