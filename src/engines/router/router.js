@@ -7,7 +7,11 @@ let changeRouteEvent = function (e) {
   },
   changeRouteState = function (route) {
     let parseUrl = parse(route, this.routers);
-    this.callback(parseUrl);
+
+    this.beforeRoute = this.currentRoute;
+    this.currentRoute = parseUrl;
+
+    this.callback(this.currentRoute, this.beforeRoute);
   },
   addIteratorOnRouts = (routersObj) => {
     routersObj[Symbol.iterator] = function*() {
@@ -23,6 +27,8 @@ class Router {
   constructor(opts) {
     this.routers = opts.routes;
     this.callback = opts.callback;
+    this.currentRoute = null;
+    this.beforeRoute = null;
 
     addIteratorOnRouts(this.routers);
   }

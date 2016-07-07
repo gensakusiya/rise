@@ -1,7 +1,7 @@
 'use strict';
 
 const changeRoute = (opts, engine, context) => {
-  const change = (request) => {
+  const change = (request, beforeRoute) => {
     if (request) {
       const createModules = () => {
         const box = request.opts.typePage === 'app' ? opts.appBox : opts.pageBox;
