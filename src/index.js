@@ -38,11 +38,11 @@ Rise.prototype = Object.create({
   start() {
     if (checkUserOpts(this.settings)) {
       this.settings.user.check.call(this).then(res => {
-        if (res.isAuth) {
-          startApp(this.settings);
-        } else {
-          renderNotAuth(this.settings, engine, context, res.url);
-        } 
+        if (!res.isAuth) {
+          engine.router.changeUrl(res.url);
+        }
+
+        startApp(this.settings);
       });
     } else {
       startApp(this.settings);
