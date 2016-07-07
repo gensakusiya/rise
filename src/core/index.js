@@ -9,6 +9,12 @@ const renderPage = {
 
     engine.module.createAll(opts.appBox, context);
   },
+  renderAppToApp(engine, context, template, opts, isBeforeRoute) {
+    if (isBeforeRoute) engine.module.deleteAll(opts.appBox);
+
+    engine.template.render(template, opts.appBox);
+    engine.module.createAll(opts.appBox, context);
+  },
   renderPageToApp(engine, context, template, opts, isBeforeRoute) {
     if (isBeforeRoute) engine.module.deleteAll(opts.appBox);
 
@@ -34,6 +40,8 @@ const changeRoute = (opts, engine, context) => {
             method = 'renderAppToPage';
           } else if (beforeRoute.opts.typePage === 'page' && request.opts.typePage === 'app') {
             method = 'renderPageToApp';
+          } else if (beforeRoute.opts.typePage === 'app' && request.opts.typePage === 'app') {
+            method = 'renderAppToApp';
           }
         } else if (request.opts.typePage === 'app') {
           method = 'renderPageToApp';
