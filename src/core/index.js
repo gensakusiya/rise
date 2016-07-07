@@ -1,14 +1,45 @@
 'use strict';
 
+const renderPage = {
+  renderAppToPage(engine, context, template, opts) {
+    engine.module.deleteAll(opts.appBox);
+
+    engine.template.render(opts.appTemplate, opts.appBox);
+    engine.template.render(template, opts.pageBox);
+
+    engine.module.createAll(opts.appBox, context);
+  },
+  renderPageToApp(engine, context, template, opts, isBeforeRoute) {
+    if (isBeforeRoute) engine.module.deleteAll(opts.appBox);
+
+    engine.template.render(template, opts.appBox);
+    engine.module.createAll(opts.appBox, context);
+  },
+  renderPageToPage(engine, context, template, opts, isBeforeRoute) {
+    if (isBeforeRoute) engine.module.deleteAll(opts.pageBox);
+
+    engine.template.render(template, opts.pageBox);
+    engine.module.createAll(opts.pageBox, context);
+  }
+};
+
 const changeRoute = (opts, engine, context) => {
   const change = (request, beforeRoute) => {
     if (request) {
       const createModules = () => {
-        const box = request.opts.typePage === 'app' ? opts.appBox : opts.pageBox;
+        let method = 'renderPageToPage';
 
-        engine.module.deleteAll(box);
-        engine.template.render(request.opts.template, box, opts.appBox);
-        engine.module.createAll(box, context);
+        if (beforeRoute) {
+          if (beforeRoute.opts.typePage === 'app' && request.opts.typePage === 'page') {
+            method = 'renderAppToPage';
+          } else if (beforeRoute.opts.typePage === 'page' && request.opts.typePage === 'app') {
+            method = 'renderPageToApp';
+          }
+        } else if (request.opts.typePage === 'app') {
+          method = 'renderPageToApp';
+        }
+
+        renderPage[method](engine, context, request.opts.template, opts, beforeRoute);
       };
 
       if (typeof opts.beforeModuleInit === 'function') {
@@ -21,17 +52,17 @@ const changeRoute = (opts, engine, context) => {
     }
   };
 
-  return (request) => {
+  return (request, beforeRoute) => {
     if (typeof opts.beforeOnRouteChange === 'function') {
       opts.beforeOnRouteChange(request)
         .then(() => {
-          return change(request);
+          return change(request, beforeRoute);
         })
         .catch((e) => {
           throw new Error('by changing the router error', e);
         });
     } else {
-      change(request);
+      change(request, beforeRoute);
     }
   };
 };

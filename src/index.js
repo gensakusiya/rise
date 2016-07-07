@@ -1,7 +1,7 @@
 'use strict';
 
 import {createCore} from './engines';
-import {changeRoute, renderApp, renderNotAuth} from './core';
+import {changeRoute, renderApp} from './core';
 
 let context = null, engine = null;
 
