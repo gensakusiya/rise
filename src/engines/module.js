@@ -41,7 +41,7 @@ ModuleEng.prototype = Object.create({
     }
 
     if (modulesEl && modulesEl.length) {
-      if (!modulesEl.forEach) modulesEl.prototype.forEach = Array.prototype.forEach;
+      if (!modulesEl.forEach) modulesEl.forEach = Array.prototype.forEach;
 
       modulesEl.forEach(el => {
         const moduleName = el.attributes[this.moduleSelector].value;
