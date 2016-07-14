@@ -9,7 +9,6 @@ const checkUserOpts = (opts) => {
   return opts.user && typeof opts.user.check === 'function';
 };
 const startApp = (settings) => {
-  renderApp(settings, engine, context);
   engine.router.start();
 };
 
