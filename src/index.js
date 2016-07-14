@@ -1,14 +1,14 @@
 'use strict';
 
 import {createCore} from './engines';
-import {changeRoute, renderApp} from './core';
+import {changeRoute} from './core';
 
 let context = null, engine = null;
 
 const checkUserOpts = (opts) => {
   return opts.user && typeof opts.user.check === 'function';
 };
-const startApp = (settings) => {
+const startApp = () => {
   engine.router.start();
 };
 

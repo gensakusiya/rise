@@ -75,17 +75,4 @@ const changeRoute = (opts, engine, context) => {
   };
 };
 
-const renderApp = (opts, engine, context) => {
-  engine.template.render(opts.appTemplate, opts.appBox);
-  engine.module.createAll(opts.appBox, context);
-};
-
-const renderNotAuth = (opts, engine, context, url) => {
-  engine.router.changeUrl(url);
-
-  changeRoute(opts, engine, context, opts.appBox);
-
-  engine.router.start(true);
-};
-
-export {changeRoute, renderApp, renderNotAuth}
+export {changeRoute}
