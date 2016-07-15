@@ -53,7 +53,7 @@ const changeRoute = (opts, engine, context) => {
       };
 
       if (typeof opts.beforeModuleInit === 'function') {
-        opts.beforeModuleInit(request).then(createModules).catch((e) => {
+        opts.beforeModuleInit(request, context).then(createModules).catch((e) => {
           throw new Error('before module init pre-hook error', e);
         });
       } else {
