@@ -45,6 +45,8 @@ const changeRoute = (opts, engine, context) => {
           }
         } else if (request.opts.typePage === 'app') {
           method = 'renderPageToApp';
+        } else if (request.opts.typePage === 'page') {
+          method = 'renderAppToPage';
         }
 
         renderPage[method](engine, context, request.opts.template, opts, beforeRoute);
