@@ -3,6 +3,28 @@
 const PARAMPREFIX = ':';
 const REGALL = '.*';
 const URLSEPARATOR = '/';
+const QUERYSEPARATOR = '?';
+const QUERYPARAMSEPARATOR = '&';
+const QUERYPARAMKEYSEPARATOR = '=';
+
+const getQueryParams = (route) => {
+  const routeParts = route.split(QUERYSEPARATOR);
+  
+  if (routeParts.length && routeParts[1]) {
+    const result = {};
+    
+    routeParts[1].split(QUERYPARAMSEPARATOR)
+      .forEach(param => {
+        const paramPart = param.split(QUERYPARAMKEYSEPARATOR);
+        
+        result[paramPart[0]] = paramPart[1];
+      });
+    
+    return result;
+  }
+  
+  return null;
+};
 
 let createReg = function (route) {
     let routePart = route.split(URLSEPARATOR),
@@ -39,17 +61,19 @@ let createReg = function (route) {
     }
   },
   addUrlParams = function (url, routeOpts) {
-    let routePart = routeOpts.route.split(URLSEPARATOR),
-      urlPart = url.split(URLSEPARATOR),
-      params = {};
+    const queryParam = getQueryParams(url);
+    const routePart = routeOpts.route.split(URLSEPARATOR);
+    const urlPart = queryParam ? url.split(QUERYSEPARATOR)[0].split(URLSEPARATOR) : url.split(URLSEPARATOR);
+    
+    let params = {};
 
     routePart.forEach((part, index) => {
       if (part && part.indexOf(PARAMPREFIX) !== -1) {
         params[part.substring(1)] = urlPart[index];
       }
     });
-
-    routeOpts.params = params;
+    
+    routeOpts.params = Object.assign({}, params, queryParam);
   };
 
 /**
