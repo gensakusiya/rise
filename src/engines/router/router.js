@@ -34,7 +34,7 @@ class Router {
   }
   
   start(quiet) {
-    if (!quiet) changeRouteState.call(this, window.location.pathname);
+    if (!quiet) changeRouteState.call(this, `${window.location.pathname}${window.location.search}`);
     window.addEventListener('popstate', changeRouteEvent.bind(this));
   }
   
