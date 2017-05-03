@@ -46,6 +46,9 @@ const createCore = (opts, changeRoute) => {
 
     navigate(url) {
       return engine.router.navigate(url);
+    },
+    silenceMove(url) {
+      return engine.router.changeUrl(url);
     }
   };
 
