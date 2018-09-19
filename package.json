@@ -10,7 +10,7 @@
   },
   "scripts": {
     "test": "npm test && ava",
-    "unit-test": "ava --require babel-register --require babel-polyfill ./tests/unit/**/*.js"
+    "unit-test": "ava --require babel-register --require babel-polyfill --require ./tests/helpers/setup-browser-env.js ./tests/unit/**/*.js"
   },
   "repository": {
     "type": "git",
@@ -31,13 +31,15 @@
     "verbose": true
   },
   "devDependencies": {
-    "ava": "^0.12.0"
+    "ava": "^0.12.0",
+    "browser-env": "^3.2.5"
   },
   "dependencies": {
     "babel-core": "^6.3.13",
     "babel-loader": "^6.2.0",
     "babel-polyfill": "^6.5.0",
     "babel-preset-es2015": "^6.3.13",
+    "babel-preset-stage-3": "^6.24.1",
     "babel-register": "^6.6.0"
   }
 }
